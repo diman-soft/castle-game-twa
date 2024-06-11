@@ -1,4 +1,5 @@
 {
+  "homepage": "https://diman-soft.github.io/castle-game-twa/",
   "name": "ton-starter-twa-vite",
   "private": true,
   "version": "0.0.0",
@@ -6,6 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "predeploy": "tsc && vite build",
+    "deploy": "gh-pages -d dist ",
     "preview": "vite preview",
     "configbot": "node configure.js"
   },
