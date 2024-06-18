@@ -14,17 +14,17 @@ export function Game() {
     unload,
     requestFullscreen,
   } = useUnityContext({
-    loaderUrl: "/build/build.loader.js",
-    dataUrl: "/build/build.data.br",
-    frameworkUrl: "/build/build.framework.js.br",
-    codeUrl: "/build/build.wasm.br",
+    loaderUrl: "build/build.loader.js",
+    dataUrl: "build/build.data.unityweb",
+    frameworkUrl: "build/build.framework.js.unityweb",
+    codeUrl: "build/build.wasm.unityweb",
   });
 
   return (
-    <div title="Jetton" className="h-dvh aspect-[10/16]">
+    <div title="Game" className="h-dvh aspect-[9/16]">
       {unityProvider && (
         <Unity
-          style={{width: "100%", height: "100%", aspectRatio: "4/3"}}
+          style={{width: "100%", height: "100%"}}
           unityProvider={unityProvider}
         />
       )}

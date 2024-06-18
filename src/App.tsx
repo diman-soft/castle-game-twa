@@ -5,6 +5,9 @@ import {FlexBoxCol, FlexBoxRow} from "./components/styled/styled";
 import {useTonConnect} from "./hooks/useTonConnect";
 import "@twa-dev/sdk";
 import {Game} from "./components/Game";
+import {useEffect} from "react";
+import {useTgAuth} from "./hooks/useTgAuth";
+import {ifError} from "assert";
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -24,20 +27,39 @@ const AppContainer = styled.div`
 `;
 
 function App() {
-  const {network} = useTonConnect();
+  // const {network} = useTonConnect();
+  const {loginWithTelegram} = useTgAuth();
+  useEffect(() => {
+    // Check if Telegram Web App is available
+    try {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
 
-  return (
-    <StyledApp>
-      <AppContainer>
-        <FlexBoxCol>
-          <FlexBoxRow>
-            <TonConnectButton className="absolute" />
-          </FlexBoxRow>
-          <Game />
-        </FlexBoxCol>
-      </AppContainer>
-    </StyledApp>
-  );
+        // Expand the web app to full screen
+        tg.expand();
+
+        // Set the header color to a matching background color
+        const backgroundColor = "#424A5B"; // Replace with your actual background color
+        tg.setHeaderColor(backgroundColor);
+
+        //Get Confirm on Exit (Prevent Sudden Exit)
+        tg.enableClosingConfirmation();
+
+        return () => {
+          // Clean up the event listener when component unmounts
+          //tg.offEvent("backButtonClicked");
+        };
+      }
+    } catch (error) {
+      window.alert(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    loginWithTelegram();
+  }, []);
+
+  return <Game />;
 }
 
 export default App;

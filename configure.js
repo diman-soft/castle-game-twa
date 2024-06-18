@@ -61,7 +61,7 @@ let githubUsername, githubRepo, botUsername;
     .catch(exitError);
 
   botUsername = getBot.data.result.username;
-  const url = `https://app.colonia.games`;
+  const url = `https://diman-soft.github.io/castle-game-twa/`;
 
   console.log(`\n\nSetting bot ${botUsername} webapp url to ${url}`);
 
