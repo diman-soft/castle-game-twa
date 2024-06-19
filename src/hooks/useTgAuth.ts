@@ -1,5 +1,5 @@
-import axios from "axios";
 import {BASE_URL} from "../configs/config";
+import axiosInstance from "../services/axios";
 import {useAuthStore} from "../store/authStore";
 
 export function useTgAuth() {
@@ -7,20 +7,21 @@ export function useTgAuth() {
 
   async function loginWithTelegram() {
     try {
-      const {id, first_name, last_name, username} =
-        window.Telegram.WebApp.initDataUnsafe;
       if (window.Telegram && window.Telegram.WebApp) {
-        const {data} = await axios.post(BASE_URL + "v1/auth/login", {
+        const {id, first_name, last_name, username} =
+          window.Telegram.WebApp.initDataUnsafe.user;
+
+        const {data} = await axiosInstance.post("v1/auth/login", {
           tgChatId: id.toString(),
           tgUsername: username,
           platform: window.Telegram.WebApp.platform,
           tgFirstName: first_name,
           tgLastName: last_name,
         });
-        setAccessToken(data.accessToken);
+        setAccessToken(data.access_token);
       }
-    } catch (error) {
-      window.alert("Unable to Authenticate: " + error);
+    } catch (error: any) {
+      console.error("Auth Error");
     }
   }
 

@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 interface Window {
   Telegram;
+  saveGameData: (data: string) => void;
 }
 
 interface Telegram {

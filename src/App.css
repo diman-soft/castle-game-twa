@@ -1,3 +1,18 @@
+@font-face {
+  font-family: "Rodetta Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Rodetta Regular"), url("fonts/Rodetta-lgDvd.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Rodetta Stamp";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Rodetta Stamp"),
+    url("fonts/RodettaStamp-9Y4jK.woff") format("woff");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

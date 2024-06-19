@@ -8,6 +8,8 @@ import {Game} from "./components/Game";
 import {useEffect} from "react";
 import {useTgAuth} from "./hooks/useTgAuth";
 import {ifError} from "assert";
+import {useAuthStore} from "./store/authStore";
+import {useGameData} from "./hooks/useGameData";
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -29,6 +31,9 @@ const AppContainer = styled.div`
 function App() {
   // const {network} = useTonConnect();
   const {loginWithTelegram} = useTgAuth();
+  const {loadGameData} = useGameData();
+  const {access_token} = useAuthStore();
+
   useEffect(() => {
     // Check if Telegram Web App is available
     try {
@@ -51,13 +56,18 @@ function App() {
         };
       }
     } catch (error) {
-      window.alert(error);
+      console.error(error);
     }
   }, []);
 
   useEffect(() => {
-    loginWithTelegram();
-  }, []);
+    async function login() {
+      if (!access_token || access_token.length == 0) await loginWithTelegram();
+      await loadGameData();
+    }
+
+    login();
+  }, [access_token]);
 
   return <Game />;
 }
