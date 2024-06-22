@@ -22,7 +22,7 @@ axiosInstance.interceptors.response.use(
             window.Telegram.WebApp.initDataUnsafe.user;
 
           const {data} = await axiosInstance.post("v1/auth/login", {
-            tgChatId: id,
+            tgChatId: id.toString(),
             tgUsername: username,
             platform: window.Telegram.WebApp.platform,
             tgFirstName: first_name,
