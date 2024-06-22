@@ -3,13 +3,18 @@ import {useFaucetJettonContract} from "../hooks/useFaucetJettonContract";
 import {Card, FlexBoxCol, FlexBoxRow, Button, Ellipsis} from "./styled/styled";
 import {Unity, useUnityContext} from "react-unity-webgl";
 import {useGameData} from "../hooks/useGameData";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useProfileStore} from "../store/profileStore";
 import Character from "../assets/Character.png";
 export function Game() {
   // const {connected} = useTonConnect();
   // const {mint, jettonWalletAddress, balance} = useFaucetJettonContract();
 
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth * 2,
+    height: window.innerHeight,
+  });
+  // window.alert(scale);
   const profileData = useProfileStore();
   const {saveGameData} = useGameData();
   const {unityProvider, isLoaded, loadingProgression, sendMessage} =
@@ -33,17 +38,45 @@ export function Game() {
         saveGameData(JSON.parse(data));
       };
     }
+    const resizeGame = () => {
+      const width = window.innerWidth * 2;
+      const height = window.innerHeight * 2;
+      setDimensions({width, height});
+    };
+    window.addEventListener("resize", resizeGame);
+    resizeGame();
 
     if (isLoaded) {
       loadGame();
     }
+
+    return () => {
+      window.removeEventListener("resize", resizeGame);
+    };
   }, [isLoaded, profileData, profileData.profile]);
 
+  const resizeGame = () => {
+    const width = window.innerWidth * 2;
+    const height = window.innerHeight * 2;
+    setDimensions({width, height});
+  };
+
   return (
-    <div title="Game" className="h-dvh">
+    <div title="Game" onClick={resizeGame} className="h-dvh">
       {unityProvider && (
         <Unity
-          style={{width: "100%", height: "100%"}}
+          style={{
+            width: dimensions.width,
+            height: dimensions.height,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            scale: "0.5",
+            transformOrigin: "top left",
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
           unityProvider={unityProvider}
         />
       )}
