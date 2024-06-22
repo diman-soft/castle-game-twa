@@ -38,44 +38,30 @@ export function Game() {
         saveGameData(JSON.parse(data));
       };
     }
-    const resizeGame = () => {
-      const width = window.innerWidth * 2;
-      const height = window.innerHeight * 2;
-      setDimensions({width, height});
-    };
-    window.addEventListener("resize", resizeGame);
-    resizeGame();
+    // const resizeGame = () => {
+    //   const width = window.innerWidth * 2;
+    //   const height = window.innerHeight * 2;
+    //   setDimensions({width, height});
+    // };
+    // window.addEventListener("resize", resizeGame);
+    // resizeGame();
 
     if (isLoaded) {
       loadGame();
     }
 
-    return () => {
-      window.removeEventListener("resize", resizeGame);
-    };
+    // return () => {
+    //   window.removeEventListener("resize", resizeGame);
+    // };
   }, [isLoaded, profileData, profileData.profile]);
 
-  const resizeGame = () => {
-    const width = window.innerWidth * 2;
-    const height = window.innerHeight * 2;
-    setDimensions({width, height});
-  };
-
   return (
-    <div title="Game" onClick={resizeGame} className="h-dvh">
+    <div title="Game" className="h-dvh">
       {unityProvider && (
         <Unity
           style={{
-            width: dimensions.width,
-            height: dimensions.height,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            scale: "0.5",
-            transformOrigin: "top left",
-            position: "absolute",
-            top: 0,
-            left: 0,
+            width: "100%",
+            height: "100%",
           }}
           unityProvider={unityProvider}
         />

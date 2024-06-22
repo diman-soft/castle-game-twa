@@ -17,13 +17,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-#root {
-  height: 100%;
-  margin: 0;
-}
-
 :root {
   --tg-theme-bg-color: #efeff3;
   --tg-theme-button-color: #2eaddc;
