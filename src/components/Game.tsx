@@ -64,6 +64,7 @@ export function Game() {
           .catch((result: ShowPromiseResult) => {
             // user skipped video or get error during playing ad
             // do nothing or whatever you want
+            sendMessage("Ads", "Result", JSON.stringify(result));
           });
       };
     }
