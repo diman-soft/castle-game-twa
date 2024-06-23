@@ -2,6 +2,7 @@
 interface Window {
   Telegram;
   saveGameData: (data: string) => void;
+  ShowAd: (data: string) => void;
 }
 
 interface Telegram {

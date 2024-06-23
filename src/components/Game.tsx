@@ -32,10 +32,40 @@ export function Game() {
           resolve(null);
         }, 3000)
       );
+      profileData.setSaveData({
+        gem: profileData.profile?.gem || 0,
+        score: profileData.profile?.score || 0,
+        saveData:
+          profileData.profile?.saveData == null
+            ? ""
+            : profileData.profile?.saveData,
+      });
       sendMessage("Data", "LoadGameData", JSON.stringify(profileData.profile));
 
       window.saveGameData = (data: string) => {
         saveGameData(JSON.parse(data));
+      };
+
+      window.ShowAd = (key: string) => {
+        //Show a Ad video
+        interface ShowPromiseResult {
+          done: boolean; // true if user watch till the end, otherwise false
+          description: string; // event description
+          state: "load" | "render" | "playing" | "destroy"; // banner state
+          error: boolean; // true if event was emitted due to error, otherwise false
+        }
+        const AdController = (window as any).Adsgram.init({blockId: key});
+        AdController.show()
+          .then((result: ShowPromiseResult) => {
+            // user watch ad till the end
+            // your code to reward user
+            window.alert("SUCCESS: " + JSON.stringify(result));
+          })
+          .catch((result: ShowPromiseResult) => {
+            // user skipped video or get error during playing ad
+            // do nothing or whatever you want
+            window.alert("FAILED:" + JSON.stringify(result));
+          });
       };
     }
     // const resizeGame = () => {
