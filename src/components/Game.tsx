@@ -59,12 +59,11 @@ export function Game() {
           .then((result: ShowPromiseResult) => {
             // user watch ad till the end
             // your code to reward user
-            window.alert("SUCCESS: " + JSON.stringify(result));
+            sendMessage("Ads", "Result", JSON.stringify(result));
           })
           .catch((result: ShowPromiseResult) => {
             // user skipped video or get error during playing ad
             // do nothing or whatever you want
-            window.alert("FAILED:" + JSON.stringify(result));
           });
       };
     }
