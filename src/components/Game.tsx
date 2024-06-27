@@ -1,10 +1,10 @@
-import {useTonConnect} from "../hooks/useTonConnect";
-import {useFaucetJettonContract} from "../hooks/useFaucetJettonContract";
-import {Card, FlexBoxCol, FlexBoxRow, Button, Ellipsis} from "./styled/styled";
-import {Unity, useUnityContext} from "react-unity-webgl";
-import {useGameData} from "../hooks/useGameData";
-import {useEffect, useState} from "react";
-import {useProfileStore} from "../store/profileStore";
+import { useTonConnect } from "../hooks/useTonConnect";
+import { useFaucetJettonContract } from "../hooks/useFaucetJettonContract";
+import { Card, FlexBoxCol, FlexBoxRow, Button, Ellipsis } from "./styled/styled";
+import { Unity, useUnityContext } from "react-unity-webgl";
+import { useGameData } from "../hooks/useGameData";
+import { useEffect, useState } from "react";
+import { useProfileStore } from "../store/profileStore";
 import Character from "../assets/Character.png";
 export function Game() {
   // const {connected} = useTonConnect();
@@ -16,8 +16,8 @@ export function Game() {
   });
   // window.alert(scale);
   const profileData = useProfileStore();
-  const {saveGameData} = useGameData();
-  const {unityProvider, isLoaded, loadingProgression, sendMessage} =
+  const { saveGameData } = useGameData();
+  const { unityProvider, isLoaded, loadingProgression, sendMessage } =
     useUnityContext({
       loaderUrl: "build/build.loader.js",
       dataUrl: "build/build.data.unityweb",
@@ -54,7 +54,7 @@ export function Game() {
           state: "load" | "render" | "playing" | "destroy"; // banner state
           error: boolean; // true if event was emitted due to error, otherwise false
         }
-        const AdController = (window as any).Adsgram.init({blockId: key});
+        const AdController = (window as any).Adsgram.init({ blockId: key });
         AdController.show()
           .then((result: ShowPromiseResult) => {
             // user watch ad till the end
@@ -89,9 +89,11 @@ export function Game() {
     <div title="Game" className="h-dvh">
       {unityProvider && (
         <Unity
+          devicePixelRatio={3}
           style={{
             width: "100%",
             height: "100%",
+            // margin: "0",
           }}
           unityProvider={unityProvider}
         />
